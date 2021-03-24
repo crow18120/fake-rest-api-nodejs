@@ -1,19 +1,5 @@
 {
-  "protected_resources": {
-    "users": ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    "products": ["POST", "PUT", "PATCH", "DELETE"]
-  },
   "users": [
-    {
-      "id": 1,
-      "name": "Nanette MacDearmaid",
-      "email": "nmacdearmaid0@ucla.edu",
-      "password": "nmacdearmaid0",
-      "phone": "185-129-2326",
-      "birthday": "11/18/1995",
-      "gender": "Female",
-      "avatar": "https://robohash.org/faceresintblanditiis.bmp?size=150x150&set=set1"
-    },
     {
       "id": 2,
       "name": "Chancey Di Maria",
@@ -112,6 +98,61 @@
       "bio": "Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.\n\nAenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",
       "gender": "Male",
       "avatar": "https://robohash.org/estipsamalias.png?size=150x150&set=set1"
+    },
+    {
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "12345",
+      "id": 12
+    },
+    {
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "dhd",
+      "id": 13
+    },
+    {
+      "name": "abc",
+      "email": "abc",
+      "id": 14
+    },
+    {
+      "name": "abc",
+      "email": "abc",
+      "id": 15
+    },
+    {
+      "name": "abc",
+      "email": "abc",
+      "id": 16
+    },
+    {
+      "name": "abc1",
+      "email": "abc1",
+      "id": 17
+    },
+    {
+      "name": "abc",
+      "email": "123",
+      "id": 18
+    },
+    {
+      "name": "ds",
+      "email": "ds",
+      "id": 19
+    },
+    {
+      "name": "dsds",
+      "email": "dsdsds",
+      "id": 20
+    },
+    {
+      "name": "ds",
+      "email": "ds",
+      "id": 21
+    },
+    {
+      "name": "1111",
+      "email": "11111",
+      "id": 23
     }
   ],
   "products": [

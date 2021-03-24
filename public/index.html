@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" name="name" id="name">
+        <input type="text" name="email" id="email">
+        <button onclick="create()">Add</button>
+    </div>
+    <table id='demo'>
+        <tr>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </table>
+    <div>
+        <input type="text" name="edit_name" id="name_edit">
+        <input type="text" name="edit_email" id="email_edit">
+        <input type="hidden" name="id" id="id_edit">
+        <button onclick="save_edit()">Update</button>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<script>
+    function loadDoc() {
+        $.get('http://localhost:3001/users', function (users) {
+
+            for (i = 0; i < users.length; i++) {
+                document.getElementById('demo').innerHTML += "<tr><td>" + users[i]["name"] + "</td><td>" + users[i]["email"] + "</td><td><a href='#' onclick=(edit(" + users[i]["id"] + "))>Edit</a>   <a href='#' onclick=(delete_user("+ users[i]["id"] + "))>Delete</a></td></tr>";
+            }
+        })
+    }
+
+    loadDoc();
+</script>
+
+<script>
+    function create() {
+        $.post('http://localhost:3001/users', {
+            name: $('#name').val(),
+            email: $('#email').val(),
+        }).done(function () {
+            alert("them moi thanh cong!");
+            $('#demo').html('');
+            loadDoc();
+        })
+    }
+
+    $('a').click(function (e) {
+        e.preventDefault();
+    })
+
+    function edit(id) {
+        $.get('http://localhost:3001/users/' + id, function (user) {
+            $('#name_edit').val(user["name"]);
+            $('#email_edit').val(user["email"]);
+            $('#id_edit').val(user["id"]);
+        })
+    }
+
+    function save_edit() {
+        let id_edit = $('#id_edit').val();
+        $.ajax({
+            url: 'http://localhost:3001/users/' + id_edit,
+            method: 'PUT',
+            data: {
+                name: $('#name_edit').val(),
+                email: $('#email_edit').val()
+            }
+        }).done(function () {
+            alert('sua thanh cong!');
+            $('#demo').html('');
+            loadDoc();
+        })
+    }
+
+    function delete_user(id) {
+        $.ajax({
+            url: 'http://localhost:3001/users/' + id,
+            method: 'DELETE'
+        }).done(function () {
+            alert('xoa thanh cong!');
+            $('#demo').html('');
+            loadDoc();
+        })
+    }
+</script>
+
+</html>

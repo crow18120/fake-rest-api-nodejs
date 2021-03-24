@@ -1,1 +1,16 @@
-{}
+{
+    "users": [
+        {
+          "id": 1,
+          "name": "Nanette MacDearmaid",
+          "email": "nmacdearmaid0@ucla.edu"
+          
+        },
+        {
+          "id": 2,
+          "name": "Chancey Di Maria",
+          "email": "cdi1@simplemachines.org"
+          
+        }
+    ]
+}
