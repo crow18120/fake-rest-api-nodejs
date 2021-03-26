@@ -1,28 +1,6 @@
 {
   "users": [
     {
-      "id": 2,
-      "name": "Chancey Di Maria",
-      "email": "cdi1@simplemachines.org",
-      "password": "simplemachines",
-      "phone": "462-441-6079",
-      "birthday": "4/4/2008",
-      "bio": "In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
-      "gender": "Male",
-      "avatar": "https://robohash.org/modiinventoremolestias.png?size=150x150&set=set1"
-    },
-    {
-      "id": 3,
-      "name": "Catherine Waberer",
-      "email": "cwaberer2@umn.edu",
-      "password": "cwaberer2",
-      "phone": "652-951-9313",
-      "birthday": "12/2/2002",
-      "bio": "In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",
-      "gender": "Female",
-      "avatar": "https://robohash.org/dolortemporibussoluta.png?size=150x150&set=set1"
-    },
-    {
       "id": 4,
       "name": "Bobbette Kenway",
       "email": "bkenway3@wiley.com",
@@ -56,17 +34,6 @@
       "avatar": "https://robohash.org/voluptatelaborummodi.jpg?size=150x150&set=set1"
     },
     {
-      "id": 7,
-      "name": "Lindy Hubbard",
-      "email": "lhubbard6@networkadvertising.org",
-      "password": "lhubbard6",
-      "phone": "967-486-1276",
-      "birthday": "11/24/2006",
-      "bio": "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.\n\nPellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.\n\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-      "gender": "Male",
-      "avatar": "https://robohash.org/doloresnatusaut.jpg?size=150x150&set=set1"
-    },
-    {
       "id": 8,
       "name": "Jerad Adney",
       "email": "jadney7@weebly.com",
@@ -76,17 +43,6 @@
       "bio": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
       "gender": "Male",
       "avatar": "https://robohash.org/debitiseacumque.bmp?size=150x150&set=set1"
-    },
-    {
-      "id": 9,
-      "name": "Davina Tassaker",
-      "email": "dtassaker8@latimes.com",
-      "password": "dtassaker8",
-      "phone": "932-840-1592",
-      "birthday": "10/24/2000",
-      "bio": "Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.",
-      "gender": "Female",
-      "avatar": "https://robohash.org/liberoametdolores.png?size=150x150&set=set1"
     },
     {
       "id": 10,
@@ -110,49 +66,54 @@
       "id": 13
     },
     {
-      "name": "abc",
-      "email": "abc",
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "anhnqgch18120@fpt.edu.vn",
       "id": 14
     },
     {
-      "name": "abc",
-      "email": "abc",
-      "id": 15
-    },
-    {
-      "name": "abc",
-      "email": "abc",
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "adsad",
       "id": 16
     },
     {
-      "name": "abc1",
-      "email": "abc1",
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "adsadd",
       "id": 17
     },
     {
-      "name": "abc",
-      "email": "123",
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "12312312",
       "id": 18
     },
     {
-      "name": "ds",
-      "email": "ds",
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "123333",
       "id": 19
     },
     {
-      "name": "dsds",
-      "email": "dsdsds",
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "1111",
       "id": 20
     },
     {
-      "name": "ds",
-      "email": "ds",
+      "name": "Deep Learning A Practitioners Approach",
+      "email": "000",
       "id": 21
     },
     {
-      "name": "1111",
-      "email": "11111",
+      "name": "2",
+      "email": "2",
       "id": 23
+    },
+    {
+      "name": "3",
+      "email": "3",
+      "id": 24
+    },
+    {
+      "name": "7",
+      "email": "7",
+      "id": 28
     }
   ],
   "products": [

@@ -14,8 +14,10 @@
         <input type="text" name="email" id="email">
         <button onclick="create()">Add</button>
     </div>
+    <button onclick="delete_base_on_check_box()">Delete base on checkbox</button>
     <table id='demo'>
         <tr>
+            <th></th>
             <th>Họ tên</th>
             <th>Email</th>
             <th></th>
@@ -27,6 +29,12 @@
         <input type="hidden" name="id" id="id_edit">
         <button onclick="save_edit()">Update</button>
     </div>
+    <div class="confirm-delete"
+        style="position: fixed; top: 50%; left: 50%; background-color: aqua; width: 50%; height: 50%; transform: translate(-50%, -50%); display: none;">
+        Are U sure? Want to Delete?
+        <button>Yes</button>
+        <button>No</button>
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
@@ -35,7 +43,15 @@
         $.get('http://localhost:3001/users', function (users) {
 
             for (i = 0; i < users.length; i++) {
-                document.getElementById('demo').innerHTML += "<tr><td>" + users[i]["name"] + "</td><td>" + users[i]["email"] + "</td><td><a href='#' onclick=(edit(" + users[i]["id"] + "))>Edit</a>   <a href='#' onclick=(delete_user("+ users[i]["id"] + "))>Delete</a></td></tr>";
+                document.getElementById('demo').innerHTML += `<tr>
+                    <td><input type='checkbox' value= '` + users[i]["id"] + `'</td>
+                    <td>` + users[i]["name"] + `</td>
+                    <td>` + users[i]["email"] + `</td>
+                    <td>
+                        <a href='#' onclick=(edit(` + users[i]["id"] + `))>Edit</a>
+                        <a href='#' onclick=(delete_user_confirm(`+ users[i]["id"] + `))>Delete</a>
+                    </td>
+                    </tr>`;
             }
         })
     }
@@ -92,6 +108,53 @@
             $('#demo').html('');
             loadDoc();
         })
+    }
+    id_delete = [];
+
+    function delete_user_confirm(id) {
+        $('.confirm-delete').show();
+        id_delete.push(id)
+    }
+
+    $('.confirm-delete button:first-child').click(function () {
+        delete_user(id_delete[0]);
+        $('.confirm-delete').hide();
+    })
+    $('.confirm-delete button:last-child').click(function () {
+        $('.confirm-delete').hide();
+        id_delete.pop();
+    })
+
+    function delete_base_on_check_box() {
+        checked_box = $("input[type=checkbox]:checked");
+        for (i = 0; i < checked_box.length; i++) {
+            id_delete.push(checked_box[i].value);
+        }
+
+        delete_array_id(id_delete);
+    }
+
+    function delete_array_id(arr) {
+        if (arr.length == 1) {
+            $.ajax({
+                url: 'http://localhost:3001/users/' + arr[0],
+                method: 'DELETE'
+            }).done(function () {
+                arr.pop();
+                alert('xoa thanh cong!');
+                $('#demo').html('');
+                loadDoc();
+            })
+        }
+        else {
+            $.ajax({
+                url: 'http://localhost:3001/users/' + arr[arr.length - 1],
+                method: 'DELETE'
+            }).done(function () {
+                arr.pop();
+                delete_array_id(arr);
+            })
+        }
     }
 </script>
 
