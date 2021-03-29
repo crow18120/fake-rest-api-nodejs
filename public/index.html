@@ -5,29 +5,68 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
 <body>
-    <div>
-        <input type="text" name="name" id="name">
-        <input type="text" name="email" id="email">
-        <button onclick="create()">Add</button>
-    </div>
-    <button onclick="delete_base_on_check_box()">Delete base on checkbox</button>
-    <table id='demo'>
-        <tr>
-            <th></th>
-            <th>Họ tên</th>
-            <th>Email</th>
-            <th></th>
-        </tr>
-    </table>
-    <div>
-        <input type="text" name="edit_name" id="name_edit">
-        <input type="text" name="edit_email" id="email_edit">
-        <input type="hidden" name="id" id="id_edit">
-        <button onclick="save_edit()">Update</button>
+
+    <div class="container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            style="margin-top: 30px;" onclick="change_form()">
+            Thêm mới nhân viên
+        </button>
+        <input type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            id="delete_check_box" style="margin-top: 30px;" onclick="del_box()" value="Xóa nhân viên" disabled>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thêm mới học viên</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email">
+                            </div>
+                            <input type="hidden" id="id_edit">
+                        </form>
+                        <div id="message">
+                            <label class="form-label">Bạn có chắc chắn muốn xóa?</label>
+                            <label class="form-label"></label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="save()">Thêm
+                            mới</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table id='demo' class="table table-striped table-hover" style="margin-top: 50px;">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" value="0" onclick=(check_num_box())></th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
     <div class="confirm-delete"
         style="position: fixed; top: 50%; left: 50%; background-color: aqua; width: 50%; height: 50%; transform: translate(-50%, -50%); display: none;">
@@ -35,127 +74,182 @@
         <button>Yes</button>
         <button>No</button>
     </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
-<script>
-    function loadDoc() {
-        $.get('http://localhost:3001/users', function (users) {
-
-            for (i = 0; i < users.length; i++) {
-                document.getElementById('demo').innerHTML += `<tr>
-                    <td><input type='checkbox' value= '` + users[i]["id"] + `'</td>
+    <script>
+        function loadDoc() {
+            $.get('http://localhost:3001/users', function (users) {
+                let content = '';
+                for (i = users.length - 1; i > 0; i--) {
+                    content += `<tr data-id="` + users[i]["id"] + `">
+                    <td><input type="checkbox" value= '` + users[i]["id"] + `' onclick=(check_num_box())></td>
                     <td>` + users[i]["name"] + `</td>
                     <td>` + users[i]["email"] + `</td>
                     <td>
-                        <a href='#' onclick=(edit(` + users[i]["id"] + `))>Edit</a>
-                        <a href='#' onclick=(delete_user_confirm(`+ users[i]["id"] + `))>Delete</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                onclick=(edit(`+ users[i]["id"] + `))>
+                                Edit
+                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                onclick=(del(`+ users[i]["id"] + `))>
+                                Delete
+                        </button>
                     </td>
                     </tr>`;
-            }
-        })
-    }
-
-    loadDoc();
-</script>
-
-<script>
-    function create() {
-        $.post('http://localhost:3001/users', {
-            name: $('#name').val(),
-            email: $('#email').val(),
-        }).done(function () {
-            alert("them moi thanh cong!");
-            $('#demo').html('');
-            loadDoc();
-        })
-    }
-
-    $('a').click(function (e) {
-        e.preventDefault();
-    })
-
-    function edit(id) {
-        $.get('http://localhost:3001/users/' + id, function (user) {
-            $('#name_edit').val(user["name"]);
-            $('#email_edit').val(user["email"]);
-            $('#id_edit').val(user["id"]);
-        })
-    }
-
-    function save_edit() {
-        let id_edit = $('#id_edit').val();
-        $.ajax({
-            url: 'http://localhost:3001/users/' + id_edit,
-            method: 'PUT',
-            data: {
-                name: $('#name_edit').val(),
-                email: $('#email_edit').val()
-            }
-        }).done(function () {
-            alert('sua thanh cong!');
-            $('#demo').html('');
-            loadDoc();
-        })
-    }
-
-    function delete_user(id) {
-        $.ajax({
-            url: 'http://localhost:3001/users/' + id,
-            method: 'DELETE'
-        }).done(function () {
-            alert('xoa thanh cong!');
-            $('#demo').html('');
-            loadDoc();
-        })
-    }
-    id_delete = [];
-
-    function delete_user_confirm(id) {
-        $('.confirm-delete').show();
-        id_delete.push(id)
-    }
-
-    $('.confirm-delete button:first-child').click(function () {
-        delete_user(id_delete[0]);
-        $('.confirm-delete').hide();
-    })
-    $('.confirm-delete button:last-child').click(function () {
-        $('.confirm-delete').hide();
-        id_delete.pop();
-    })
-
-    function delete_base_on_check_box() {
-        checked_box = $("input[type=checkbox]:checked");
-        for (i = 0; i < checked_box.length; i++) {
-            id_delete.push(checked_box[i].value);
+                }
+                $('#demo tbody').html(content);
+            })
         }
 
-        delete_array_id(id_delete);
-    }
+        loadDoc();
+    </script>
 
-    function delete_array_id(arr) {
-        if (arr.length == 1) {
-            $.ajax({
-                url: 'http://localhost:3001/users/' + arr[0],
-                method: 'DELETE'
+    <script>
+
+        function save() {
+            name_btn = $('.modal-footer button:last-child').text();
+            if (name_btn === 'Thêm mới') {
+                create();
+            }
+            else if (name_btn === 'Chỉnh sửa') {
+                save_edit();
+            }
+            else if (name_btn === 'Xóa') {
+                save_del($('#id_edit').val());
+            }
+            else {
+                delete_base_on_check_box();
+            }
+        }
+
+        function create() {
+            $.post('http://localhost:3001/users', {
+                name: $('#name').val(),
+                email: $('#email').val(),
             }).done(function () {
-                arr.pop();
-                alert('xoa thanh cong!');
-                $('#demo').html('');
+                $('#name').val('');
+                $('#email').val('');
                 loadDoc();
             })
         }
-        else {
-            $.ajax({
-                url: 'http://localhost:3001/users/' + arr[arr.length - 1],
-                method: 'DELETE'
-            }).done(function () {
-                arr.pop();
-                delete_array_id(arr);
+
+        function change_form() {
+            $('.modal-title').text('Thêm mới nhân viên');
+            $('.modal-footer button:last-child').text('Thêm mới');
+            $('#form').show();
+            $('#message').hide();
+            $('#name').val('');
+            $('#email').val('');
+            $('#id_edit').val('');
+        }
+
+        function edit(id) {
+            $('.modal-title').text('Chỉnh sửa nhân viên');
+            $('.modal-footer button:last-child').text('Chỉnh sửa');
+            $('#form').show();
+            $('#message').hide();
+            $.get('http://localhost:3001/users/' + id, function (user) {
+                $('#name').val(user["name"]);
+                $('#email').val(user["email"]);
+                $('#id_edit').val(user["id"]);
             })
         }
-    }
-</script>
+
+        function save_edit() {
+            let id_edit = $('#id_edit').val();
+            $.ajax({
+                url: 'http://localhost:3001/users/' + id_edit,
+                method: 'PUT',
+                data: {
+                    name: $('#name').val(),
+                    email: $('#email').val()
+                }
+            }).done(function () {
+                $('#name').val('');
+                $('#email').val('');
+                $('#id_edit').val('');
+                loadDoc();
+            })
+        }
+
+        function del(id) {
+            $('.modal-title').text('Xóa nhân viên');
+            $('.modal-footer button:last-child').text('Xóa');
+            $('#id_edit').val(id);
+            $('#form').hide();
+            $('#message').show();
+        }
+
+        function del_box() {
+            $('.modal-title').text('Xóa nhân viên');
+            $('.modal-footer button:last-child').text('Xóa hết');
+            $('#form').hide();
+            $('#message').show();
+        }
+
+        function save_del(id) {
+            $.ajax({
+                url: 'http://localhost:3001/users/' + id,
+                method: 'DELETE'
+            }).done(function () {
+                $('#id_edit').val('');
+                $('tr').filter(function () {
+                    return ($(this).attr('data-id') == id)
+                }).remove();
+            })
+        }
+
+        id_delete = [];
+
+        function check_num_box() {
+            console.log('abc');
+            if ($('input[type=checkbox]:checked').length > 0) {
+                $('#delete_check_box').prop('disabled', false);
+            } else {
+                $('#delete_check_box').prop('disabled', true);
+            }
+        }
+
+        function delete_base_on_check_box() {
+            checked_box = $("input[type=checkbox]:checked").filter(function () {
+                return $(this).val() != '0';
+            });
+
+            for (i = 0; i < checked_box.length; i++) {
+                id_delete.push(checked_box[i].value);
+            }
+            delete_array_id(id_delete, checked_box);
+        }
+
+        function delete_array_id(arr, arr_ele) {
+            if (arr.length == 1) {
+                $.ajax({
+                    url: 'http://localhost:3001/users/' + arr[0],
+                    method: 'DELETE'
+                }).done(function () {
+                    arr.pop();
+                    for(i = 0; i < arr_ele.length; i++) {
+                        $(arr_ele[i]).closest('tr').remove();
+                    }
+                })
+            }
+            else {
+                $.ajax({
+                    url: 'http://localhost:3001/users/' + arr[arr.length - 1],
+                    method: 'DELETE'
+                }).done(function () {
+                    arr.pop();
+                    delete_array_id(arr, arr_ele);
+                })
+            }
+        }
+    </script>
+</body>
 
 </html>
