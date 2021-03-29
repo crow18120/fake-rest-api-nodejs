@@ -57,7 +57,7 @@
         <table id='demo' class="table table-striped table-hover" style="margin-top: 50px;">
             <thead>
                 <tr>
-                    <th><input type="checkbox" value="0" onclick=(check_num_box())></th>
+                    <th><input type="checkbox" value="0" onclick=(check_total_box())></th>
                     <th>Họ tên</th>
                     <th>Email</th>
                     <th>Action</th>
@@ -207,8 +207,19 @@
 
         id_delete = [];
 
+        function check_total_box() {
+            if ($('input[type=checkbox]').filter(function() {
+                return $(this).val() == 0;
+            }).prop('checked') == true) {
+                $('input[type=checkbox]').prop('checked', true);
+            }
+            else {
+                $('input[type=checkbox]').prop('checked', false);
+            }
+            check_num_box();
+        }
+
         function check_num_box() {
-            console.log('abc');
             if ($('input[type=checkbox]:checked').length > 0) {
                 $('#delete_check_box').prop('disabled', false);
             } else {
@@ -234,9 +245,10 @@
                     method: 'DELETE'
                 }).done(function () {
                     arr.pop();
-                    for(i = 0; i < arr_ele.length; i++) {
+                    for (i = 0; i < arr_ele.length; i++) {
                         $(arr_ele[i]).closest('tr').remove();
                     }
+                    $('input[type=checkbox]').prop('checked', false);
                 })
             }
             else {
